@@ -17,6 +17,66 @@ void mydisplay()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the window
 
+	glPushMatrix();
+	glTranslatef(-3.0, 0.0, 0.0);
+
+	glBegin(GL_TRIANGLES);
+	glColor4f(1, 1, 1, 1);
+	glVertex3f(0.0, 1.0, 0.0);
+	glVertex3f(-1.0, -1.0, 1.0);		// Á¤¸é
+	glVertex3f(1.0, -1.0, 1.0);
+
+	glVertex3f(0.0, 1.0, 0.0);
+	glVertex3f(0.0, -1.0, -1.0);		// ¿À¸¥ÂÊ
+	glVertex3f(1.0, -1.0, 1.0);
+
+	glVertex3f(0.0, 1.0, 0.0);		// ¿ÞÂÊ
+	glVertex3f(0.0, -1.0, -1.0);
+	glVertex3f(-1.0, -1.0, 1.0);
+
+	glVertex3f(0.0, -1.0, -1.0);	// ¹Ø¸é
+	glVertex3f(1.0, -1.0, 1.0);
+	glVertex3f(-1.0, -1.0, 1.0);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(3.0, 0.0, 0.0);
+	glBegin(GL_QUADS); // Å¥ºê
+	glColor4f(1, 1, 1, 1);
+	glVertex3f(1.0, 1.0, 1.0);
+	glVertex3f(1.0, -1.0, 1.0);		// Á¤¸é
+	glVertex3f(-1.0, -1.0, 1.0);
+	glVertex3f(-1.0, -1.0, 1.0);
+
+	glVertex3f(1.0, 1.0, 1.0);
+	glVertex3f(1.0, 1.0, -1.0);		// ¿À¸¥ÂÊ¸é
+	glVertex3f(1.0, -1.0, -1.0);
+	glVertex3f(1.0, -1.0, 1.0);
+
+	glVertex3f(-1.0, 1.0, 1.0);
+	glVertex3f(-1.0, 1.0, -1.0);
+	glVertex3f(-1.0, -1.0, -1.0);		// ¿ÞÂÊ¸é
+	glVertex3f(-1.0, -1.0, 1.0);
+
+	glVertex3f(-1.0, 1.0, -1.0);
+	glVertex3f(1.0, 1.0, -1.0);		// À­¸é
+	glVertex3f(1.0, 1.0, 1.0);
+	glVertex3f(-1.0, 1.0, 1.0);
+
+	glVertex3f(-1.0, 1.0, -1.0);
+	glVertex3f(1.0, 1.0, -1.0);		// µÞ¸é
+	glVertex3f(1.0, -1.0, -1.0);
+	glVertex3f(-1.0, -1.0, -1.0);
+
+	glVertex3f(-1.0, -1.0, -1.0);
+	glVertex3f(1.0, -1.0, -1.0);
+	glVertex3f(1.0, -1.0, 1.0);		// ¹Ø¸é
+	glVertex3f(-1.0, -1.0, 1.0);
+
+	glEnd();
+	glPopMatrix();
+	glutSwapBuffers();
 }
 void mouseclick(int button, int state, int x, int y)
 {
