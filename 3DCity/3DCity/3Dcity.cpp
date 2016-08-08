@@ -180,6 +180,40 @@ void quad2(int a, int b, int c, int d, GLfloat size, int e)
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(ver_roof2[d][0] * size, ver_roof2[d][1] * size, ver_roof2[d][2] * size);
 	glEnd();
 }
+void polygon(int a, int b, int c, int d, GLfloat size, int flag)
+{
+	float p[3][3] = { { ver_c[a][0] * size, ver_c[a][1] * size, ver_c[a][2] * size },
+	{ ver_c[b][0] * size, ver_c[b][1] * size, ver_c[b][2] * size },
+	{ ver_c[c][0] * size, ver_c[c][1] * size, ver_c[c][2] * size } };
+
+	float vec1[3] = { p[1][0] - p[0][0], p[1][1] - p[0][1], p[1][2] - p[0][2] };
+	float vec2[3] = { p[2][0] - p[0][0], p[2][1] - p[0][1], p[2][2] - p[0][2] };
+	float out[3] = { vec1[1] * vec2[2] - vec1[2] * vec2[1], vec1[2] * vec2[0] - vec1[0] * vec2[2], vec1[0] * vec2[1] - vec1[1] * vec2[0] };
+	float vecSize = sqrt(out[0] * out[0] + out[1] * out[1] + out[2] * out[2]);
+
+	out[0] = out[0] / vecSize;
+	out[1] = out[1] / vecSize;
+	out[2] = out[2] / vecSize;
+	if (flag == 1)
+	{
+		glBegin(GL_TRIANGLES);
+		glNormal3f(out[0], out[1], out[2]);
+		glVertex3f(ver_roof[a][0] * size, ver_roof[a][1] * size, ver_roof[a][2] * size);
+		glVertex3f(ver_roof[b][0] * size, ver_roof[b][1] * size, ver_roof[b][2] * size);
+		glVertex3f(ver_roof[c][0] * size, ver_roof[c][1] * size, ver_roof[c][2] * size);
+	}
+	else
+	{
+		glBegin(GL_QUADS);
+		glNormal3f(out[0], out[1], out[2]);
+		glVertex3f(ver_roof[a][0] * size, ver_roof[a][1] * size, ver_roof[a][2] * size);
+		glVertex3f(ver_roof[b][0] * size, ver_roof[b][1] * size, ver_roof[b][2] * size);
+		glVertex3f(ver_roof[c][0] * size, ver_roof[c][1] * size, ver_roof[c][2] * size);
+		glVertex3f(ver_roof[d][0] * size, ver_roof[d][1] * size, ver_roof[d][2] * size);
+	}
+	glEnd();
+}
+
 void drawCube(double x, double y, GLfloat size, int texe, int texf)
 {
 	glPushMatrix();
@@ -202,6 +236,29 @@ void drawCube_building2(double x, double y, GLfloat size, int texe, int texf)
 	quad(7, 6, 2, 3, size, texf);      // ¿À¸¥¸é
 	quad(1, 2, 6, 5, size, texe);      // À­¸é
 	quad(0, 4, 7, 3, size, texe);      // ¹Ø¸é
+	glPopMatrix();
+}
+void drawCube_train(double x, double y, GLfloat size, int texe, int texf)
+{
+	glPushMatrix();
+	glScalef((GLfloat)x, (GLfloat)y, 1.0f);
+	quad(0, 3, 2, 1, size, texf);      // ¾Õ¸é
+	quad(4, 0, 1, 5, size, texe);      // ¿Þ¸é
+	quad(7, 4, 5, 6, size, texf);      // µÞ¸é
+	quad(7, 6, 2, 3, size, texe);      // ¿À¸¥¸é
+	quad(1, 2, 6, 5, size, texe);      // À­¸é
+	quad(0, 4, 7, 3, size, texe);      // ¹Ø¸é
+	glPopMatrix();
+}
+void drawPoly(double x, double y, GLfloat size)
+{
+	glPushMatrix();
+	glScalef((GLfloat)x, (GLfloat)y, 1.0f);
+	polygon(1, 2, 0, 0, size, 1);	// ¿Þ¸é
+	polygon(4, 5, 3, 0, size, 1);	// ¿À¸¥¸é
+	polygon(2, 5, 3, 0, size, 2);	// ¿À¸¥¸é
+	polygon(4, 1, 0, 3, size, 2);
+	polygon(1, 4, 5, 2, size, 2);
 	glPopMatrix();
 }
 void mydisplay()
