@@ -504,6 +504,31 @@ void bridge()
 	glPushMatrix(); glTranslatef((GLfloat)3.9, (GLfloat)-1.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
 	glPushMatrix(); glTranslatef((GLfloat)8.9, (GLfloat)-1.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
 }
+void tree()
+{
+
+	GLfloat ambient_tree_1[] = { 0.02 , 0.91 , 0.02 , 1.0 }; GLfloat diffues_tree_1[] = { 0.12 , 0.95, 0.14, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_tree_1);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_tree_1); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef((GLfloat)-0.6, (GLfloat)2.3, (GLfloat)0.5); glRotatef(180.0, 1.0, 0.0, 0.0); draw_Cylinder((GLfloat)0.7, (GLfloat)0.7); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)0.6, (GLfloat)2.3, (GLfloat)0.5);  glRotatef(180.0, 1.0, 0.0, 0.0); draw_Cylinder((GLfloat)0.7, (GLfloat)0.7); glPopMatrix();
+	glPushMatrix(); glTranslatef(0, (GLfloat)1.8, (GLfloat)0.5);			 glRotatef(180.0, 1.0, 0.0, 0.0); draw_Cylinder((GLfloat)0.7, (GLfloat)0.7); glPopMatrix();
+	glPushMatrix(); glTranslatef(0, (GLfloat)3, (GLfloat)0.5);				 glRotatef(180.0, 1.0, 0.0, 0.0); draw_Cylinder((GLfloat)0.7, (GLfloat)0.7); glPopMatrix();
+
+	GLfloat ambient_tree[] = { 0.62 , 0.21 , 0.02 , 1.0 }; GLfloat diffues_tree[] = { 0.62 , 0.35, 0.14, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_tree);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_tree); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glScalef((GLfloat)0.7, (GLfloat)1.7, 1);					 glRotatef(90.0, 1.0, 0.0, 0.0);  drawCube(0.1, 0.1, 1, 4, 4); glPopMatrix();
+}
+void house()
+{
+	GLfloat ambient_ho[] = { 0.82 , 0.81 , 0.02 , 1.0 }; GLfloat diffues_ho[] = { 0.92 , 0.85, 0.14, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_ho);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_ho); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)0, 0.0); glRotatef(-90.0, 0.0, 1.0, 0.0);  drawCube(1, 1.0, 1.0, 16, 15); glPopMatrix();
+
+	GLfloat ambient_roof[] = { 0.92 , 0.11 , 0.02 , 1.0 }; GLfloat diffues_roof[] = { 0.92 , 0.05, 0.14, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_roof);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_roof); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)1.2, 0.0); drawPoly(0.75, 0.5, 1.5); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)1.2, 0.0); glRotatef(180.0, 0.0, 1.0, 0.0); drawPoly(0.75, 0.5, 1.5); glPopMatrix();
+}
 //---------------------------------------------------------------------------------건물 그리기
 void drawBuilding1()
 {
@@ -652,6 +677,44 @@ void drawbridge()
 	glPushMatrix(); glTranslatef((GLfloat)-15.9, (GLfloat)-3.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
 	glPushMatrix(); glTranslatef((GLfloat)10.9, (GLfloat)-3.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
 	glPushMatrix(); glTranslatef((GLfloat)38.9, (GLfloat)-3.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
+}
+void drawHouse()
+{
+	glPushMatrix(); glTranslatef(38.0, -4.0, 16.0); glRotatef(90.0, 0.0, 1.0, 0.0); house(); glPopMatrix();
+	glPushMatrix(); glTranslatef(38.0, -4.0, 20.0); glRotatef(90.0, 0.0, 1.0, 0.0); house(); glPopMatrix();
+	glPushMatrix(); glTranslatef(34.0, -4.0, 16.0); glRotatef(90.0, 0.0, 1.0, 0.0); house(); glPopMatrix();
+	glPushMatrix(); glTranslatef(34.0, -4.0, 20.0); glRotatef(90.0, 0.0, 1.0, 0.0); house(); glPopMatrix();
+	glPushMatrix(); glTranslatef(30.0, -4.0, 16.0); glRotatef(90.0, 0.0, 1.0, 0.0); house(); glPopMatrix();
+	glPushMatrix(); glTranslatef(30.0, -4.0, 20.0); glRotatef(90.0, 0.0, 1.0, 0.0); house(); glPopMatrix();
+}
+void drawTree()
+{
+	glPushMatrix();	glTranslatef(-23.0, -3.0, -10.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(-24.0, -3.0, -3.0);  glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(-8.5, -3.0, 16.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(-5.5, -3.0, 16.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(-2.5, -3.0, 16.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(0.5, -3.0, 16.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(0.5, -3.0, 20.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(3.5, -3.0, 17.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(6.5, -3.0, 17.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(9.5, -3.0, 17.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+
+	glPushMatrix();	glTranslatef(6.5, -3.0, 40.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(3.5, -3.0, 40.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(0.5, -3.0, 40.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(0.5, -3.0, 37.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(-3.5, -3.0, 39.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(-6.5, -3.0, 38.5); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(-9.5, -3.0, 38.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+
+	glPushMatrix();	glTranslatef(-11.5, -3.0, 30.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(-11.5, -3.0, 25.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+
+
+	glPushMatrix();	glTranslatef(32.0, -3.0, 14.5); glScalef((GLfloat)0.5, (GLfloat)0.5, (GLfloat)0.5); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(39.0, -3.0, 24.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+	glPushMatrix();	glTranslatef(40.0, -3.0, 14.5); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
 }
 
 void mydisplay()
