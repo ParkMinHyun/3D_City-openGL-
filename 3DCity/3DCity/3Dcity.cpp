@@ -1159,6 +1159,18 @@ void keyboard(unsigned char key, int x, int y)
 			fog_density = 0;
 		fog_density -= 0.02;
 		break; 
+	case 't':					// 전체 텍스처 in or out
+		if (flag == 0)
+		{
+			glDisable(GL_TEXTURE_2D);
+			flag = 1;
+		}
+		else
+		{
+			glEnable(GL_TEXTURE_2D);
+			flag = 0;
+		}
+		break;
 	case 'm':
 			if (near_linear == false)
 			{
