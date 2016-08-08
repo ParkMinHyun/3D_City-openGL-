@@ -497,6 +497,13 @@ void train()
 	glPushMatrix(); glTranslatef((GLfloat)6.7, (GLfloat)0, (GLfloat)0); glRotatef(90.0, 0.0, 0.0, 1.0);	 drawCube(0.1, 2, (GLfloat)0.1, 4, 1); glPopMatrix();
 	glPushMatrix(); glTranslatef((GLfloat)8.3, (GLfloat)0, (GLfloat)0); drawCube_train(2.5, 1, (GLfloat)0.6, 4, 14);		 glPopMatrix();
 }
+void bridge()
+{
+	drawCube(30, 0.8, (GLfloat)0.5, 4, 4);
+	glPushMatrix(); glTranslatef((GLfloat)-1.9, (GLfloat)-1.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)3.9, (GLfloat)-1.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)8.9, (GLfloat)-1.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
+}
 //---------------------------------------------------------------------------------건물 그리기
 void drawBuilding1()
 {
@@ -636,6 +643,15 @@ void drawtrain()
 	GLfloat ambient_car2[] = { 0.92 , 0.91 , 0.92 , 1.0 }; GLfloat diffues_car2[] = { 0.92 , 0.95, 0.74, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_car2);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_car2); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
 	glPushMatrix();   glTranslatef(-7.0, -2.5, 0.0); glScalef(1.8, 1, 1);   train(); glPopMatrix();
+}
+void drawbridge()
+{
+	GLfloat ambient_bridge[] = { 0.22 , 0.21 , 0.22 , 1.0 }; GLfloat diffues_bridge[] = { 0.22 , 0.25, 0.24, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_bridge);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_bridge); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef((GLfloat)2, (GLfloat)-2, (GLfloat)0);	   drawCube(80, 0.8, (GLfloat)0.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)-15.9, (GLfloat)-3.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)10.9, (GLfloat)-3.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)38.9, (GLfloat)-3.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
 }
 
 void mydisplay()
