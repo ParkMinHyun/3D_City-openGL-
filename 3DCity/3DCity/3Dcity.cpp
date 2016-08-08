@@ -15,6 +15,19 @@ int zoomming = 0;
 int dragging = 0;
 int transing = 0;
 
+bool f1_flag = false;
+bool f2_flag = false;
+bool f3_flag = false;
+bool f4_flag = false;
+bool f5_flag = false;
+bool f6_flag = false;
+bool f7_flag = false;
+bool f8_flag = false;
+bool f9_flag = false;
+bool f10_flag = false;
+bool f11_flag = false;
+bool f12_flag = false;
+
 GLfloat zoom = 10;
 
 GLfloat ambient0[] = { 0.1f, 0.15f, 0.15f, 1.0f };
@@ -773,8 +786,41 @@ void mydisplay()
 
 	glRotatef(X_axis, 1.0, 0.0, 0.0);  // 마우스 드래그 회전 X축 기준
 	glRotatef(Y_axis, 0.0, 1.0, 0.0);  // 마우스 드래그 회전 Y축 기준
-	
-	glutSolidCube(10);
+
+	if (f1_flag == true)
+		drawBuilding1();
+	if (f2_flag == true)
+	{
+		drawBuilding2();
+		drawHospital();
+	}
+	if (f3_flag == true)
+		drawCityhall_Policeoffice();
+	if (f4_flag == true)
+	{
+		drawChurch();
+		drawSchool();
+	}
+	if (f5_flag == true)
+	{
+		drawCar();
+		drawTruck();
+	}
+	if (f6_flag == true)
+	{
+		drawHotel();
+		drawHouse();
+	}
+	if (f7_flag == true)
+	{
+		glPushMatrix(); glTranslatef(train_t, 0, 0.0); drawtrain(); glPopMatrix();
+		drawTree();
+		drawcrossload();
+		drawbridge();
+	}
+
+	drawfield();
+	drawroad();
 
 	glutSwapBuffers();
 }
@@ -827,6 +873,84 @@ void mousemove(int x, int y) //https://en.wikibooks.org/wiki/OpenGL_Programming/
 
 	glutPostRedisplay();
 }
+
+void specialKeys(int key, int x, int y)
+{
+	switch (key)
+	{
+	case GLUT_KEY_F1:  // F1 function key
+		if (f1_flag == false)
+			f1_flag = true;
+		else
+			f1_flag = false;
+		break;
+	case GLUT_KEY_F2:  // F2 function key
+		if (f2_flag == false)
+			f2_flag = true;
+		else
+			f2_flag = false;
+		break;
+	case GLUT_KEY_F3:  // F3 function key
+		if (f3_flag == false)
+			f3_flag = true;
+		else
+			f3_flag = false;
+		break;
+	case GLUT_KEY_F4:  // F4 function key
+		if (f4_flag == false)
+			f4_flag = true;
+		else
+			f4_flag = false;
+		break;
+	case GLUT_KEY_F5:  // F5 function key
+		if (f5_flag == false)
+			f5_flag = true;
+		else
+			f5_flag = false;
+		break;
+	case GLUT_KEY_F6:  // F6 function key
+		if (f6_flag == false)
+			f6_flag = true;
+		else
+			f6_flag = false;
+		break;
+	case GLUT_KEY_F7:  // F7 function key
+		if (f7_flag == false)
+			f7_flag = true;
+		else
+			f7_flag = false;
+		break;
+	case GLUT_KEY_F8:  // F8 function key
+		if (f8_flag == false)
+			f8_flag = true;
+		else
+			f8_flag = false;
+		break;
+	case GLUT_KEY_F9:  // F9 function key
+		if (f9_flag == false)
+			f9_flag = true;
+		else
+			f9_flag = false;
+		break;
+	case GLUT_KEY_F10:  // F10 function key
+		if (f10_flag == false)
+			f10_flag = true;
+		else
+			f10_flag = false;
+		break;
+	/*case GLUT_KEY_PAGE_UP:
+		if (train_t > -30)
+			train_t--;
+		break;
+	case GLUT_KEY_PAGE_DOWN:
+		if (train_t < 35)
+			train_t++;
+		break;*/
+
+
+	}
+	glutPostRedisplay();
+}
 void keyboard(unsigned char key, int x, int y)
 {
 	switch (key)
@@ -869,6 +993,7 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(keyboard);
 	glutMouseFunc(mouseclick);
 	glutMotionFunc(mousemove);
+	glutSpecialFunc(specialKeys);
 
 	glutMainLoop();
 }
