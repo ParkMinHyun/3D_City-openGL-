@@ -1,3 +1,4 @@
+
 #include<stdio.h>
 #include<GL/glut.h>
 #include<math.h>
@@ -16,6 +17,14 @@ int dragging = 0;
 int transing = 0;
 int train_transing = 0;
 
+GLfloat train_t = 0;
+GLfloat zoom = 10;
+GLfloat fog_density = 0;
+GLfloat flag = 0;
+
+bool near_linear = false;
+GLuint textures[25];
+
 bool flag_trans = false;
 bool f1_flag = false;
 bool f2_flag = false;
@@ -29,21 +38,11 @@ bool f9_flag = false;
 bool f10_flag = false;
 bool f11_flag = false;
 bool f12_flag = false;
-
-GLfloat train_t = 0;
-GLfloat zoom = 10;
-GLfloat flag = 0;
-GLfloat fog_density = 0;
-
-bool near_linear = false;
-GLuint textures[25];
-
 GLfloat ambient0[] = { 0.1f, 0.15f, 0.15f, 1.0f };
 GLfloat diffuse0[] = { 0.0f, 0.3f, 0.0f, 1.0f };
 GLfloat specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 GLfloat lightPos0[] = { -100.0f, 0.0f, 150.0f, 1.0f };
 GLfloat specref[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-
 
 GLfloat ambient1[] = { 0.4, 0.28, 0.25, 1.0 };
 GLfloat diffuse1[] = { 0.10, 0.00, 0.50, 1.0 };
@@ -125,6 +124,39 @@ AUX_RGBImageRec *LoadBMPFile(char *filename)
 	}
 
 	return NULL;
+}
+
+
+void Initlight()										// All Setup For OpenGL Goes Here
+{
+	glClearColor(1, 1, 1, 1);
+	glClearDepth(1.0f);									// Depth Buffer Setup
+	glEnable(GL_CULL_FACE);
+	glFrontFace(GL_CCW);
+
+	glEnable(GL_LIGHTING);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient1);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse1);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, specular1);
+	glLightfv(GL_LIGHT1, GL_POSITION, lightPos1);
+
+	glLightfv(GL_LIGHT2, GL_AMBIENT, ambient2);
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, diffuse2);
+	glLightfv(GL_LIGHT2, GL_SPECULAR, specular2);
+	glLightfv(GL_LIGHT2, GL_POSITION, lightPos2);
+
+	glShadeModel(GL_SMOOTH);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_LIGHT2);
+	glEnable(GL_NORMALIZE);
 }
 
 int LoadGLTextures(GLint modify)									// Load Bitmaps And Convert To Textures
@@ -270,44 +302,13 @@ int LoadGLTextures(GLint modify)									// Load Bitmaps And Convert To Textures
 	}
 }
 
-void Initlight()										// All Setup For OpenGL Goes Here
-{
-	glClearColor(1, 1, 1, 1);
-	glClearDepth(1.0f);									// Depth Buffer Setup
-	glEnable(GL_CULL_FACE);
-	glFrontFace(GL_CCW);
-
-	glEnable(GL_LIGHTING);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
-	glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
-
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient1);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse1);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, specular1);
-	glLightfv(GL_LIGHT1, GL_POSITION, lightPos1);
-
-	glLightfv(GL_LIGHT2, GL_AMBIENT, ambient2);
-	glLightfv(GL_LIGHT2, GL_DIFFUSE, diffuse2);
-	glLightfv(GL_LIGHT2, GL_SPECULAR, specular2);
-	glLightfv(GL_LIGHT2, GL_POSITION, lightPos2);
-
-	glShadeModel(GL_SMOOTH);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHT1);
-	glEnable(GL_LIGHT2);
-	glEnable(GL_NORMALIZE);
-}
-
 int init()
 {
 	Initlight();
 
 	if (!LoadGLTextures(0))								// Jump To Texture Loading Routine ( NEW )
 		return FALSE;									// If Texture Didn't Load Return FALSE
+														// If Texture Didn't Load Return FALSE
 
 	glFogi(GL_FOG_MODE, GL_EXP); // GL_LINEAR, GL_EXP, GL_EXP2
 	glFogfv(GL_FOG_COLOR, fogColor);
@@ -320,6 +321,7 @@ int init()
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+
 }
 void quad(int a, int b, int c, int d, GLfloat size, int e)
 {
@@ -548,6 +550,7 @@ void draw_Cylinder(GLfloat radius, GLfloat height)         // 꽉찬 실린더
 	glVertex3f(radius, 0.0, height);
 	glEnd();
 }
+//-----------------------------------------------------------------------------------
 void building1()   // glTranslatef의 y축에 GLfloat을 해야 경고문이 없어져서 ㅠㅠ 코드가 길어지긴 했지만 넣었습니다..........
 {
 	drawCube(1.0, 0.4, 1.5, 4, 4);
@@ -732,10 +735,6 @@ void road()
 	glPushMatrix();   glTranslatef(15, -10, 28.0); glRotatef(90, 0, 1, 0); glScalef(17.5, 0.1, 4.2);  drawCube(1, 1, 1, 0, 0); glPopMatrix();
 	glPushMatrix();   glTranslatef(-22, -10, 28.0); glRotatef(90, 0, 1, 0); glScalef(17.5, 0.1, 3.2);  drawCube(1, 1, 1, 0, 0); glPopMatrix();
 }
-void field()
-{
-	glPushMatrix(); glTranslatef(-6.0, -2.0, 2.0); glScalef(1, 1, 0.05); drawCube(40, 40, 1, 4, 1); glPopMatrix();
-}
 //---------------------------------------------------------------------------------건물 그리기
 void drawBuilding1()
 {
@@ -834,57 +833,6 @@ void drawHotel()
 	glPushMatrix(); glTranslatef(40.0, 0, 30.0); glRotatef(-90, 0.0, 1.0, 0.0); glScalef((GLfloat)1.3, (GLfloat)1.3, (GLfloat)1.3); hotel(2, 2, 2); glPopMatrix();
 	glPushMatrix(); glTranslatef(40.0, -3, 30.0); glRotatef(-90, 0.0, 1.0, 0.0); drawHotelEntrance(); glPopMatrix();
 }
-void drawCar()
-{
-	GLfloat ambient_car[] = { 0.22 , 0.21 , 0.22 , 1.0 }; GLfloat diffues_car[] = { 0.22 , 0.25, 0.24, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, diffues_car);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, ambient_car); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
-	glPushMatrix(); glTranslatef(-25.0, -4.0, 28.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
-	glPushMatrix(); glTranslatef(-25.0, -4.0, 31.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
-	glPushMatrix(); glTranslatef(-25.0, -4.0, 34.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
-	glPushMatrix(); glTranslatef(-25.0, -4.0, 37.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
-	glPushMatrix(); glTranslatef(-21.0, -4.0, 37.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
-	glPushMatrix(); glTranslatef(-21.0, -4.0, 34.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
-	glPushMatrix(); glTranslatef(-21.0, -4.0, 31.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
-
-	GLfloat ambient_car2[] = { 0.92 , 0.21 , 0.22 , 1.0 }; GLfloat diffues_car2[] = { 0.92 , 0.25, 0.24, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_car2);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_car2); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
-	glPushMatrix(); glTranslatef(-23.0, -4.0, 7.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8);  car(); glPopMatrix();
-	glPushMatrix(); glTranslatef(-23.0, -4.0, 9.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8);  car(); glPopMatrix();
-	glPushMatrix(); glTranslatef(-23.0, -4.0, 11.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8);  car(); glPopMatrix();
-	glPushMatrix(); glTranslatef(-20.0, -4.0, 11.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8);  car(); glPopMatrix();
-
-
-	glPushMatrix(); glTranslatef(0.0, -4.0, 1.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-90.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
-	glPushMatrix(); glTranslatef(15.0, -4.0, 11.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); car(); glPopMatrix();
-	glPushMatrix(); glTranslatef(12.0, -4.0, 9.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); car(); glPopMatrix();
-	glPushMatrix(); glTranslatef(37.0, -4.0, 9.5); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); car(); glPopMatrix();
-	glPushMatrix(); glTranslatef(23.0, -4.0, 40); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
-}
-void drawTruck()
-{
-	GLfloat ambient_car[] = { 0.99 , 0.99 , 0.92 , 1.0 }; GLfloat diffues_car[] = { 0.92 , 0.95, 0.94, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, diffues_car);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, ambient_car); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
-
-	glPushMatrix(); glTranslatef(-5.0, -4.0, 5.0); truck(); glPopMatrix();
-	glPushMatrix(); glTranslatef(-5.0, -4.0, 3.0); truck(); glPopMatrix();
-	glPushMatrix(); glTranslatef(25.0, -4.0, 3.0); truck(); glPopMatrix();
-	glPushMatrix(); glTranslatef(20.0, -4.0, 40); glRotatef(90.0, 0.0, 1.0, 0.0); truck(); glPopMatrix();
-}
-void drawtrain()
-{
-	GLfloat ambient_car2[] = { 0.92 , 0.91 , 0.92 , 1.0 }; GLfloat diffues_car2[] = { 0.92 , 0.95, 0.74, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_car2);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_car2); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
-	glPushMatrix();   glTranslatef(-7.0, -2.5, 0.0); glScalef(1.8, 1, 1);   train(); glPopMatrix();
-}
-void drawbridge()
-{
-	GLfloat ambient_bridge[] = { 0.22 , 0.21 , 0.22 , 1.0 }; GLfloat diffues_bridge[] = { 0.22 , 0.25, 0.24, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_bridge);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_bridge); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
-	glPushMatrix(); glTranslatef((GLfloat)2, (GLfloat)-2, (GLfloat)0);	   drawCube(80, 0.8, (GLfloat)0.5, 4, 4); glPopMatrix();
-	glPushMatrix(); glTranslatef((GLfloat)-15.9, (GLfloat)-3.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
-	glPushMatrix(); glTranslatef((GLfloat)10.9, (GLfloat)-3.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
-	glPushMatrix(); glTranslatef((GLfloat)38.9, (GLfloat)-3.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
-}
 void drawHouse()
 {
 	glPushMatrix(); glTranslatef(38.0, -4.0, 16.0); glRotatef(90.0, 0.0, 1.0, 0.0); house(); glPopMatrix();
@@ -923,6 +871,61 @@ void drawTree()
 	glPushMatrix();	glTranslatef(39.0, -3.0, 24.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
 	glPushMatrix();	glTranslatef(40.0, -3.0, 14.5); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
 }
+void drawCar()
+{
+	GLfloat ambient_car[] = { 0.22 , 0.21 , 0.22 , 1.0 }; GLfloat diffues_car[] = { 0.22 , 0.25, 0.24, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, diffues_car);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, ambient_car); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(-25.0, -4.0, 28.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-25.0, -4.0, 31.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-25.0, -4.0, 34.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-25.0, -4.0, 37.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-21.0, -4.0, 37.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-21.0, -4.0, 34.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-21.0, -4.0, 31.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+
+	GLfloat ambient_car2[] = { 0.92 , 0.21 , 0.22 , 1.0 }; GLfloat diffues_car2[] = { 0.92 , 0.25, 0.24, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_car2);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_car2); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(-23.0, -4.0, 7.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8);  car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-23.0, -4.0, 9.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8);  car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-23.0, -4.0, 11.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8);  car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-20.0, -4.0, 11.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8);  car(); glPopMatrix();
+
+
+	glPushMatrix(); glTranslatef(0.0, -4.0, 1.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-90.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(15.0, -4.0, 11.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(12.0, -4.0, 9.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(37.0, -4.0, 9.5); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(23.0, -4.0, 40); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+}
+void drawTruck()
+{
+	GLfloat ambient_car[] = { 0.99 , 0.99 , 0.92 , 1.0 }; GLfloat diffues_car[] = { 0.92 , 0.95, 0.94, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, diffues_car);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, ambient_car); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+
+	glPushMatrix(); glTranslatef(-5.0, -4.0, 5.0); truck(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-5.0, -4.0, 3.0); truck(); glPopMatrix();
+	glPushMatrix(); glTranslatef(25.0, -4.0, 3.0); truck(); glPopMatrix();
+	glPushMatrix(); glTranslatef(20.0, -4.0, 40); glRotatef(90.0, 0.0, 1.0, 0.0); truck(); glPopMatrix();
+}
+void drawbridge()
+{
+	GLfloat ambient_bridge[] = { 0.22 , 0.21 , 0.22 , 1.0 }; GLfloat diffues_bridge[] = { 0.22 , 0.25, 0.24, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_bridge);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_bridge); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef((GLfloat)2, (GLfloat)-2, (GLfloat)0);	   drawCube(80, 0.8, (GLfloat)0.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)-15.9, (GLfloat)-3.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)10.9, (GLfloat)-3.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)38.9, (GLfloat)-3.3, (GLfloat)0); drawCube(1, 2, (GLfloat)0.5, 4, 4); glPopMatrix();
+}
+void drawtrain()
+{
+	GLfloat ambient_car2[] = { 0.92 , 0.91 , 0.92 , 1.0 }; GLfloat diffues_car2[] = { 0.92 , 0.95, 0.74, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_car2);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_car2); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix();   glTranslatef(-7.0, -2.5, 0.0); glScalef(1.8, 1, 1);   train(); glPopMatrix();
+}
+void field()
+{
+	glPushMatrix(); glTranslatef(-6.0, -2.0, 2.0); glScalef(1, 1, 0.05); drawCube(40, 40, 1, 4, 1); glPopMatrix();
+}
 void drawfield()
 {
 	GLfloat ambient[] = { 0.01 , 0.09 , 0.09 , 1.0 };
@@ -948,10 +951,9 @@ void drawroad()
 {
 	glPushMatrix(); glTranslatef(6.0, 13.2, 2.0); road(); glPopMatrix();
 }
-
 void mydisplay()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the window
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear color and depth buffers
 
 	glClearColor(1, 1, 1, 1);
 	glMatrixMode(GL_PROJECTION);
@@ -961,6 +963,7 @@ void mydisplay()
 
 	glRotatef(X_axis, 1.0, 0.0, 0.0);  // 마우스 드래그 회전 X축 기준
 	glRotatef(Y_axis, 0.0, 1.0, 0.0);  // 마우스 드래그 회전 Y축 기준
+	glFogf(GL_FOG_DENSITY, fog_density); // fog
 
 	if (f1_flag == true)
 		drawBuilding1();
@@ -999,7 +1002,6 @@ void mydisplay()
 
 	glutSwapBuffers();
 }
-
 void mouseclick(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
@@ -1011,42 +1013,17 @@ void mouseclick(int button, int state, int x, int y)
 
 	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)  // http://www.coders-hub.com/2013/06/opengl-code-to-zoom-in-and-zoom-out.html#.VzGjGoSLSUm
 	{
-		zoomming = 1; 
-		mouseStartX = (GLfloat)x; 
-		mouseStartY = (GLfloat)y;
+		zoomming = 1;  mouseStartX = (GLfloat)x; mouseStartY = (GLfloat)y;
 	}
 	else
 		zoomming = 0;
+
 	if (button == GLUT_MIDDLE_BUTTON && state == GLUT_DOWN)
 	{
 		transing = 1;  mouseStartX = (GLfloat)x; mouseStartY = (GLfloat)y;
 	}
 	else
 		transing = 0;
-
-}
-void mousemove(int x, int y) //https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball -출처
-{
-	if (dragging)
-	{
-		Y_axis += (x - mouseStartX) / 2;
-		X_axis -= (y - mouseStartY) / 2;
-	}
-	else if (zoomming)
-	{
-		if (zoom > 179) zoom = 179;
-		else if (zoom < 1) zoom = 1;
-		zoom -= (y - mouseStartY) / 20;
-	}
-	else if (transing)
-	{
-		transitionX -= (x - mouseStartX) / 40;
-		transitionY -= -(y - mouseStartY) / 40;
-	}
-	mouseStartX = (GLfloat)x;
-	mouseStartY = (GLfloat)y;
-
-	glutPostRedisplay();
 }
 
 void specialKeys(int key, int x, int y)
@@ -1126,6 +1103,30 @@ void specialKeys(int key, int x, int y)
 	}
 	glutPostRedisplay();
 }
+void mousemove(int x, int y) //https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball -출처
+{
+	if (dragging)
+	{
+		Y_axis += (x - mouseStartX) / 2;
+		X_axis -= (y - mouseStartY) / 2;
+	}
+	else if (zoomming)
+	{
+		if (zoom > 179) zoom = 179;
+		else if (zoom < 1) zoom = 1;
+		zoom -= (y - mouseStartY) / 20;
+	}
+	else if (transing)
+	{
+		transitionX -= (x - mouseStartX) / 40;
+		transitionY -= -(y - mouseStartY) / 40;
+	}
+
+	mouseStartX = (GLfloat)x;
+	mouseStartY = (GLfloat)y;
+
+	glutPostRedisplay();
+}
 void keyboard(unsigned char key, int x, int y)
 {
 	switch (key)
@@ -1153,16 +1154,16 @@ void keyboard(unsigned char key, int x, int y)
 		glEnable(GL_LIGHT2);
 		break;
 	case 'f':
-		if (fog_density > 1)
+		if (fog_density>1)
 			fog_density = 1;
 		fog_density += 0.02;
-
 		break;
+
 	case 'g':
-		if (fog_density < 0)
+		if (fog_density<0)
 			fog_density = 0;
 		fog_density -= 0.02;
-		break; 
+		break;
 	case 't':					// 전체 텍스처 in or out
 		if (flag == 0)
 		{
@@ -1176,19 +1177,19 @@ void keyboard(unsigned char key, int x, int y)
 		}
 		break;
 	case 'm':
-			if (near_linear == false)
-			{
-				LoadGLTextures(0);
-				printf("%d", near_linear);
-				near_linear = true;
-			}
-			else
-			{
-				LoadGLTextures(1);
-				printf("%d", near_linear);
-				near_linear = false;
-			}
-			break;
+		if (near_linear == false)
+		{
+			LoadGLTextures(0);
+			printf("%d", near_linear);
+			near_linear = true;
+		}
+		else
+		{
+			LoadGLTextures(1);
+			printf("%d", near_linear);
+			near_linear = false;
+		}
+		break;
 	case 'b':					// 전체 텍스처 in or out
 		if (flag_trans == false)
 		{
@@ -1208,6 +1209,8 @@ void keyboard(unsigned char key, int x, int y)
 	case 'x':
 		exit(0);
 	}
+
+	glutPostRedisplay();
 }
 int main(int argc, char** argv)
 {
@@ -1217,13 +1220,12 @@ int main(int argc, char** argv)
 	glutInitWindowSize(1400, 1400);
 	glutInitWindowPosition(50, 50);
 	glutCreateWindow("122179_박민현");
-
 	init();
+
 	glutDisplayFunc(mydisplay);
 	glutKeyboardFunc(keyboard);
 	glutMouseFunc(mouseclick);
 	glutMotionFunc(mousemove);
 	glutSpecialFunc(specialKeys);
-
 	glutMainLoop();
 }
