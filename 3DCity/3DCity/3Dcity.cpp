@@ -2,8 +2,8 @@
 #include<GL/glut.h>
 #include<math.h>
 #include<GLAUX.h>
-//vertex 배열을 이용해 Cube를 크기값만 주면 그려주는 함수 및 노말 벡터 적용
 
+#define PI 3.1415927
 GLfloat X_axis = 0;
 GLfloat Y_axis = 0;
 GLfloat Z_axis = 0;
@@ -32,6 +32,8 @@ bool f12_flag = false;
 GLfloat train_t = 0;
 GLfloat zoom = 10;
 GLfloat fog_density = 0;
+
+GLuint textures[25];
 
 GLfloat ambient0[] = { 0.1f, 0.15f, 0.15f, 1.0f };
 GLfloat diffuse0[] = { 0.0f, 0.3f, 0.0f, 1.0f };
@@ -106,6 +108,165 @@ GLfloat ver_hotel[20][3] =
 	{ -1,-1,1 },{ -0.5,-1,0.5 },{ 0,-1,(GLfloat)0.3 },{ 0.5,-1,0.5 },{ 1,-1,1, },
 	{ 1,-1,0 },{ 0.5,-1,-0.75 },{ 0,-1,-1 },{ -0.5,-1,-0.75 },{ -1,-1,0 },
 };
+AUX_RGBImageRec *LoadBMPFile(char *filename)
+{
+	FILE *hFile = NULL;
+
+	if (!filename) return NULL;
+
+	hFile = fopen(filename, "r");
+
+	if (hFile) {
+		fclose(hFile);
+		return auxDIBImageLoad(filename);
+	}
+
+	return NULL;
+}
+
+int LoadGLTextures(GLint modify)									// Load Bitmaps And Convert To Textures
+{
+	int Status = FALSE;									// Status Indicator
+
+	AUX_RGBImageRec *TextureImage[25];					// Create Storage Space For The Texture
+
+	memset(TextureImage, 0, sizeof(void *) * 1);           	// Set The Pointer To NULL
+
+	if (modify == 1)
+	{
+		// Load The Bitmap, Check For Errors, If Bitmap's Not Found Quit
+		if ((TextureImage[0] = LoadBMPFile("road2.bmp")) &&
+			(TextureImage[1] = LoadBMPFile("lightening.bmp")) &&
+			(TextureImage[2] = LoadBMPFile("power.bmp")) &&
+			(TextureImage[3] = LoadBMPFile("building2.bmp")) &&
+			(TextureImage[3] = LoadBMPFile("building2.bmp")) &&
+			(TextureImage[4] = LoadBMPFile("building_surface.bmp")) &&
+			(TextureImage[5] = LoadBMPFile("building_surface2.bmp")) &&
+			(TextureImage[6] = LoadBMPFile("hospital.bmp")) &&
+			(TextureImage[7] = LoadBMPFile("cityhall.bmp")) &&
+			(TextureImage[8] = LoadBMPFile("church.bmp")) &&
+			(TextureImage[9] = LoadBMPFile("school.bmp")) &&
+			(TextureImage[10] = LoadBMPFile("school_surface.bmp")) &&
+			(TextureImage[11] = LoadBMPFile("police2.bmp")) &&
+			(TextureImage[12] = LoadBMPFile("police1.bmp")) &&
+			(TextureImage[13] = LoadBMPFile("police3.bmp")) &&
+			(TextureImage[14] = LoadBMPFile("train.bmp")) &&
+			(TextureImage[15] = LoadBMPFile("door2.bmp")) &&
+			(TextureImage[16] = LoadBMPFile("door3.bmp")) &&
+			(TextureImage[17] = LoadBMPFile("cupang.bmp")) &&
+			(TextureImage[18] = LoadBMPFile("hotel_front.bmp")) &&
+			(TextureImage[19] = LoadBMPFile("hotel_up.bmp")))
+		{
+			Status = TRUE;									// Set The Status To TRUE
+
+			glGenTextures(20, &textures[0]);					// Create The Texture
+			for (int i = 0; i<20; i++)
+			{
+				// Typical Texture Generation Using Data From The Bitmap
+				glBindTexture(GL_TEXTURE_2D, textures[i]);
+				glTexImage2D(GL_TEXTURE_2D, 0, 3, TextureImage[i]->sizeX, TextureImage[i]->sizeY, 0, GL_RGB, GL_UNSIGNED_BYTE, TextureImage[i]->data);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			}
+		}
+		for (int i = 0; i<20; i++)
+		{
+			if (TextureImage[i])									// If Texture Exists
+			{
+				if (TextureImage[i]->data)							// If Texture Image Exists		
+					free(TextureImage[i]->data);					// Free The Texture Image Memory
+				free(TextureImage[i]);								// Free The Image Structure
+			}
+		}
+
+		if ((TextureImage[16] = LoadBMPFile("block.bmp")))
+		{
+			Status = TRUE;									// Set The Status To TRUE
+
+			glGenTextures(1, &textures[16]);
+			glBindTexture(GL_TEXTURE_2D, textures[16]);
+			glTexImage2D(GL_TEXTURE_2D, 0, 3, 10, 10, 0, GL_RGB, GL_UNSIGNED_BYTE, TextureImage[16]->data);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		}
+		if (TextureImage[16])									// If Texture Exists
+		{
+			if (TextureImage[16]->data)							// If Texture Image Exists		
+				free(TextureImage[16]->data);					// Free The Texture Image Memory
+			free(TextureImage[16]);								// Free The Image Structure
+		}
+		return Status;										// Return The Status
+	}
+	else
+	{
+		if ((TextureImage[0] = LoadBMPFile("road2.bmp")) &&
+			(TextureImage[1] = LoadBMPFile("lightening.bmp")) &&
+			(TextureImage[2] = LoadBMPFile("power.bmp")) &&
+			(TextureImage[3] = LoadBMPFile("building2.bmp")) &&
+			(TextureImage[3] = LoadBMPFile("building2.bmp")) &&
+			(TextureImage[4] = LoadBMPFile("building_surface.bmp")) &&
+			(TextureImage[5] = LoadBMPFile("building_surface2.bmp")) &&
+			(TextureImage[6] = LoadBMPFile("hospital.bmp")) &&
+			(TextureImage[7] = LoadBMPFile("cityhall.bmp")) &&
+			(TextureImage[8] = LoadBMPFile("church.bmp")) &&
+			(TextureImage[9] = LoadBMPFile("school.bmp")) &&
+			(TextureImage[10] = LoadBMPFile("school_surface.bmp")) &&
+			(TextureImage[11] = LoadBMPFile("police2.bmp")) &&
+			(TextureImage[12] = LoadBMPFile("police1.bmp")) &&
+			(TextureImage[13] = LoadBMPFile("police3.bmp")) &&
+			(TextureImage[14] = LoadBMPFile("train.bmp")) &&
+			(TextureImage[15] = LoadBMPFile("door2.bmp")) &&
+			(TextureImage[16] = LoadBMPFile("door3.bmp")) &&
+			(TextureImage[17] = LoadBMPFile("cupang.bmp")) &&
+			(TextureImage[18] = LoadBMPFile("hotel_front.bmp")) &&
+			(TextureImage[19] = LoadBMPFile("hotel_up.bmp")))
+		{
+			Status = TRUE;									// Set The Status To TRUE
+
+			glGenTextures(20, &textures[0]);					// Create The Texture
+			for (int i = 0; i<20; i++)
+			{
+				// Typical Texture Generation Using Data From The Bitmap
+				glBindTexture(GL_TEXTURE_2D, textures[i]);
+				glTexImage2D(GL_TEXTURE_2D, 0, 3, TextureImage[i]->sizeX, TextureImage[i]->sizeY, 0, GL_RGB, GL_UNSIGNED_BYTE, TextureImage[i]->data);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			}
+		}
+		for (int i = 0; i<20; i++)
+		{
+			if (TextureImage[i])									// If Texture Exists
+			{
+				if (TextureImage[i]->data)							// If Texture Image Exists		
+					free(TextureImage[i]->data);					// Free The Texture Image Memory
+				free(TextureImage[i]);								// Free The Image Structure
+			}
+		}
+
+		if ((TextureImage[16] = LoadBMPFile("block.bmp")))
+		{
+			Status = TRUE;									// Set The Status To TRUE
+
+			glGenTextures(1, &textures[16]);
+			glBindTexture(GL_TEXTURE_2D, textures[16]);
+			glTexImage2D(GL_TEXTURE_2D, 0, 3, 10, 10, 0, GL_RGB, GL_UNSIGNED_BYTE, TextureImage[16]->data);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		}
+		if (TextureImage[16])									// If Texture Exists
+		{
+			if (TextureImage[16]->data)							// If Texture Image Exists		
+				free(TextureImage[16]->data);					// Free The Texture Image Memory
+			free(TextureImage[16]);								// Free The Image Structure
+		}
+		return Status;										// Return The Status
+	}
+}
+
 void Initlight()										// All Setup For OpenGL Goes Here
 {
 	glClearColor(1, 1, 1, 1);
@@ -138,22 +299,20 @@ void Initlight()										// All Setup For OpenGL Goes Here
 	glEnable(GL_NORMALIZE);
 }
 
-void init()
+int init()
 {
 	Initlight();
 
-	glClearColor(0.0, 0.0, 0.0, 0.0); // black clear color, opaque window
-	glColor4f(1.0, 1.0, 1.0, 1); // white
-	glMatrixMode(GL_PROJECTION);
-
-	gluPerspective(45.0f, 1.0, 1.0, 500.0);		 // 각도~ 45도로 잡겠다 내가 보는 방향. 
-	gluLookAt(0, 0, 30, 0, 0, 0, 0, 1, 0);
-	glLoadIdentity();
+	if (!LoadGLTextures(0))								// Jump To Texture Loading Routine ( NEW )
+		return FALSE;									// If Texture Didn't Load Return FALSE
 
 	glFogi(GL_FOG_MODE, GL_EXP); // GL_LINEAR, GL_EXP, GL_EXP2
 	glFogfv(GL_FOG_COLOR, fogColor);
 	glHint(GL_FOG_HINT, GL_NICEST);
 	glEnable(GL_FOG);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
 }
 void quad(int a, int b, int c, int d, GLfloat size, int e)
 {
