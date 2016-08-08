@@ -15,6 +15,7 @@ int zoomming = 0;
 int dragging = 0;
 int transing = 0;
 
+bool flag_trans = false;
 bool f1_flag = false;
 bool f2_flag = false;
 bool f3_flag = false;
@@ -28,6 +29,7 @@ bool f10_flag = false;
 bool f11_flag = false;
 bool f12_flag = false;
 
+GLfloat train_t = 0;
 GLfloat zoom = 10;
 GLfloat fog_density = 0;
 
@@ -945,14 +947,14 @@ void specialKeys(int key, int x, int y)
 		else
 			f10_flag = false;
 		break;
-	/*case GLUT_KEY_PAGE_UP:
+	case GLUT_KEY_PAGE_UP:
 		if (train_t > -30)
 			train_t--;
 		break;
 	case GLUT_KEY_PAGE_DOWN:
 		if (train_t < 35)
 			train_t++;
-		break;*/
+		break;
 
 
 	}
