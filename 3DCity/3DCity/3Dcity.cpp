@@ -37,8 +37,43 @@ GLfloat shine[] = { 25.0 };
 
 GLfloat specular_m[] = { 1.00, 1.00, 1.00, 1.0 };
 
+
+void Initlight()										// All Setup For OpenGL Goes Here
+{
+	glClearColor(1, 1, 1, 1);
+	glClearDepth(1.0f);									// Depth Buffer Setup
+	glEnable(GL_CULL_FACE);
+	glFrontFace(GL_CCW);
+
+	glEnable(GL_LIGHTING);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient1);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse1);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, specular1);
+	glLightfv(GL_LIGHT1, GL_POSITION, lightPos1);
+
+	glLightfv(GL_LIGHT2, GL_AMBIENT, ambient2);
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, diffuse2);
+	glLightfv(GL_LIGHT2, GL_SPECULAR, specular2);
+	glLightfv(GL_LIGHT2, GL_POSITION, lightPos2);
+
+	glShadeModel(GL_SMOOTH);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_LIGHT2);
+	glEnable(GL_NORMALIZE);
+}
+
 void init()
 {
+	Initlight();
+
 	glClearColor(0.0, 0.0, 0.0, 0.0); // black clear color, opaque window
 	glColor4f(1.0, 1.0, 1.0, 1); // white
 	glMatrixMode(GL_PROJECTION);
