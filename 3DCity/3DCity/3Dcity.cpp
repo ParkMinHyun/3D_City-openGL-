@@ -14,6 +14,7 @@ GLfloat mouseStartY;
 int zoomming = 0;
 int dragging = 0;
 int transing = 0;
+int train_transing = 0;
 
 bool flag_trans = false;
 bool f1_flag = false;
@@ -31,8 +32,10 @@ bool f12_flag = false;
 
 GLfloat train_t = 0;
 GLfloat zoom = 10;
+GLfloat flag = 0;
 GLfloat fog_density = 0;
 
+bool near_linear = false;
 GLuint textures[25];
 
 GLfloat ambient0[] = { 0.1f, 0.15f, 0.15f, 1.0f };
@@ -1151,12 +1154,25 @@ void keyboard(unsigned char key, int x, int y)
 		fog_density += 0.02;
 
 		break;
-
 	case 'g':
 		if (fog_density < 0)
 			fog_density = 0;
 		fog_density -= 0.02;
-		break;
+		break; 
+	case 'm':
+			if (near_linear == false)
+			{
+				LoadGLTextures(0);
+				printf("%d", near_linear);
+				near_linear = true;
+			}
+			else
+			{
+				LoadGLTextures(1);
+				printf("%d", near_linear);
+				near_linear = false;
+			}
+			break;
 
 	case 'x':
 		exit(0);
