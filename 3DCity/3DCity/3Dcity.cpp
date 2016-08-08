@@ -17,6 +17,26 @@ int transing = 0;
 
 GLfloat zoom = 10;
 
+GLfloat ambient0[] = { 0.1f, 0.15f, 0.15f, 1.0f };
+GLfloat diffuse0[] = { 0.0f, 0.3f, 0.0f, 1.0f };
+GLfloat specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+GLfloat lightPos0[] = { -100.0f, 0.0f, 150.0f, 1.0f };
+GLfloat specref[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+
+GLfloat ambient1[] = { 0.4, 0.28, 0.25, 1.0 };
+GLfloat diffuse1[] = { 0.10, 0.00, 0.50, 1.0 };
+GLfloat specular1[] = { 1.0, 1.0, 1.0, 1.0 };
+GLfloat lightPos1[] = { 3.0, 30.0, -30 };
+
+GLfloat ambient2[] = { 0.27, 0.10, 0.20, 1.0 };
+GLfloat diffuse2[] = { 0.73, 0.75, 0.52, 1.0 };
+GLfloat specular2[] = { 1.0, 1.0, 1.0, 1.0 };
+GLfloat lightPos2[] = { 28.0,0.3, 1.0 };
+GLfloat shine[] = { 25.0 };
+
+GLfloat specular_m[] = { 1.00, 1.00, 1.00, 1.0 };
+
 void init()
 {
 	glClearColor(0.0, 0.0, 0.0, 0.0); // black clear color, opaque window
