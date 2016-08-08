@@ -36,7 +36,19 @@ GLfloat lightPos2[] = { 28.0,0.3, 1.0 };
 GLfloat shine[] = { 25.0 };
 
 GLfloat specular_m[] = { 1.00, 1.00, 1.00, 1.0 };
+//------cube vertex ----
+GLfloat ver_c[8][3] =
+{
+	{ -1.0,-1.0,1.0 },
+	{ -1.0,1.0,1.0 },
+	{ 1.0,1.0,1.0 },
+	{ 1.0,-1.0,1.0 },
 
+	{ -1.0,-1.0,-1.0 },
+	{ -1.0,1.0,-1.0 },
+	{ 1.0,1.0,-1.0 },
+	{ 1.0,-1.0,-1.0 },
+};
 
 void Initlight()										// All Setup For OpenGL Goes Here
 {
@@ -80,6 +92,7 @@ void init()
 
 	gluPerspective(45.0f, 1.0, 1.0, 500.0);		 // 각도~ 45도로 잡겠다 내가 보는 방향. 
 	gluLookAt(0, 0, 30, 0, 0, 0, 0, 1, 0);
+	glLoadIdentity();
 }
 
 void mydisplay()
@@ -95,7 +108,7 @@ void mydisplay()
 	glRotatef(X_axis, 1.0, 0.0, 0.0);  // 마우스 드래그 회전 X축 기준
 	glRotatef(Y_axis, 0.0, 1.0, 0.0);  // 마우스 드래그 회전 Y축 기준
 	
-	glutSolidCube(2);
+	glutSolidCube(10);
 
 	glutSwapBuffers();
 }
