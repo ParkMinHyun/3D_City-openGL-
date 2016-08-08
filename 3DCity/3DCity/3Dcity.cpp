@@ -7,10 +7,13 @@
 GLfloat X_axis = 0;
 GLfloat Y_axis = 0;
 GLfloat Z_axis = 0;
+GLfloat transitionX = 0;
+GLfloat transitionY = 0;
 GLfloat mouseStartX;
 GLfloat mouseStartY;
 int zoomming = 0;
 int dragging = 0;
+int transing = 0;
 
 GLfloat zoom = 10;
 
@@ -32,7 +35,7 @@ void mydisplay()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(zoom, 1.0, 0.1, 1000);
-	gluLookAt(-200, 300, 700, 0 ,0, 0, 0, 1, 0);
+	gluLookAt(-200, 300, 700, transitionX, transitionY, 0, 0, 1, 0);
 
 	glRotatef(X_axis, 1.0, 0.0, 0.0);  // 마우스 드래그 회전 X축 기준
 	glRotatef(Y_axis, 0.0, 1.0, 0.0);  // 마우스 드래그 회전 Y축 기준
@@ -59,6 +62,12 @@ void mouseclick(int button, int state, int x, int y)
 	}
 	else
 		zoomming = 0;
+	if (button == GLUT_MIDDLE_BUTTON && state == GLUT_DOWN)
+	{
+		transing = 1;  mouseStartX = (GLfloat)x; mouseStartY = (GLfloat)y;
+	}
+	else
+		transing = 0;
 
 }
 void mousemove(int x, int y) //https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball -출처
@@ -73,6 +82,11 @@ void mousemove(int x, int y) //https://en.wikibooks.org/wiki/OpenGL_Programming/
 		if (zoom > 179) zoom = 179;
 		else if (zoom < 1) zoom = 1;
 		zoom -= (y - mouseStartY) / 20;
+	}
+	else if (transing)
+	{
+		transitionX -= (x - mouseStartX) / 40;
+		transitionY -= -(y - mouseStartY) / 40;
 	}
 	mouseStartX = (GLfloat)x;
 	mouseStartY = (GLfloat)y;
