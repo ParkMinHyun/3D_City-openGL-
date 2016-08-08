@@ -417,6 +417,45 @@ void hospital()
 	glPushMatrix(); glTranslatef((GLfloat)1.45, (GLfloat)3.9, 0.0); drawCube(0.05, 0.3, (GLfloat)1, 4, 1); glPopMatrix();
 	glPushMatrix(); glTranslatef((GLfloat)1.35, (GLfloat)3.9, 0.0); glRotatef(90.0, 1.0, 0.0, 0.0);  drawCube(0.05, 0.3, 1, 4, 1); glPopMatrix();
 }
+void cityhall()
+{
+	drawCube(2.5, 2.0, 1, 5, 7);
+	glPushMatrix(); glTranslatef(3.5, (GLfloat)-1.75, (GLfloat)0);  glRotatef(-90.0, 1.0, 0.0, 0.0); glScalef(1, 1, 5.5);    cylinder(0.9, 0.9, 0.9);            glPopMatrix();//(1,1,2.3);
+	glPushMatrix(); glTranslatef(0, (GLfloat)-1.3, (GLfloat)2.2); glRotatef(90.0, 0.0, 1.0, 0.0);          drawCube(0.6, 0.05, (GLfloat)1.7, 4, 5.5);  glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)-1, (GLfloat)-2.7, (GLfloat)6);  glRotatef(90.0, 0.0, 1.0, 0.0); drawCylinder(0.1, 0.1, 0.5);         glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)-0.4, (GLfloat)-2.7, (GLfloat)6); glRotatef(90.0, 0.0, 1.0, 0.0); drawCylinder(0.1, 0.1, 0.5);         glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)0.2, (GLfloat)-2.7, (GLfloat)6); glRotatef(90.0, 0.0, 1.0, 0.0); drawCylinder(0.1, 0.1, 0.5);         glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)0.8, (GLfloat)-2.7, (GLfloat)6); glRotatef(90.0, 0.0, 1.0, 0.0); drawCylinder(0.1, 0.1, 0.5);         glPopMatrix();
+}
+void policeOffice()
+{
+	GLfloat ambient_p[] = { 0.92 , 0.99, 0.99 , 1.0 }; GLfloat diffues_p[] = { 0.92 , 0.95, 0.94, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, diffues_p);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, ambient_p); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+
+	drawCube(1, 1, (GLfloat)1.2, 4, 12);
+
+	GLfloat ambient_po[] = { 0.02 , 0.01 , 0.92 , 1.0 };
+	GLfloat diffues_po[] = { 0.02 , 0.05, 0.94, 1.0 };
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_po);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_po);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m);
+	glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(0, (GLfloat)2.03, 0); drawCube(1, 0.8, 1.0, 11, 11); glPopMatrix();
+
+	GLfloat ambient_p1[] = { 0.92 , 0.99, 0.99 , 1.0 }; GLfloat diffues_p1[] = { 0.92 , 0.95, 0.94, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, diffues_p1);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, ambient_p1); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(0, (GLfloat)3.5, 0); drawCube(1, 0.8, (GLfloat)0.8, 4, 13);        glPopMatrix();
+
+	GLfloat ambient_po1[] = { 0.02 , 0.01 , 0.92 , 1.0 };
+	GLfloat diffues_po1[] = { 0.02 , 0.05, 0.94, 1.0 };
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_po1);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_po1);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m);
+	glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(-2, (GLfloat)0.7, 1);  glRotatef(90.0, 1.0, 0.0, 0.0);  drawCube(0.05, 0.05, (GLfloat)2, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(-2.5, (GLfloat)0.7, 1); glRotatef(90.0, 1.0, 0.0, 0.0);  drawCube(0.05, 0.05, (GLfloat)2, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(-0.6, (GLfloat)-0.15, 1.5);  glRotatef(90.0, 0.0, 1.0, 0.0); drawCube(0.5, 0.1, (GLfloat)0.5, 4, 4);  glPopMatrix();
+}
 //---------------------------------------------------------------------------------건물 그리기
 void drawBuilding1()
 {
@@ -482,6 +521,20 @@ void drawSchool()
 void drawHospital()
 {
 	glPushMatrix(); glTranslatef((GLfloat)12.3, (GLfloat)1.7, (GLfloat)-10.5); glRotatef(180.0, 0.0, 1.0, 0.0); glScalef(1, (GLfloat)2.2, (GLfloat)1.9); hospital(); glPopMatrix();
+}
+void drawCityhall_Policeoffice()
+{
+	GLfloat ambient_city[] = { 0.92 , 0.71 , 0.22 , 1.0 }; GLfloat diffues_city[] = { 0.92 , 0.75, 0.24, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, diffues_city);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, ambient_city); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix();   glTranslatef(14.5, 1.0, 25.0);   glRotatef(-90, 0.0, 1.0, 0.0); glScalef(2, 2.5, 2); cityhall(); glPopMatrix();
+
+	GLfloat ambient_po[] = { 0.02 , 0.01 , 0.92 , 1.0 };
+	GLfloat diffues_po[] = { 0.02 , 0.05, 0.94, 1.0 };
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_po);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_po);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m);
+	glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix();   glTranslatef(14.5, -1.0, 40.0);   glRotatef(-90, 0.0, 1.0, 0.0); glScalef(2, 2.5, 2); policeOffice(); glPopMatrix();
 }
 void mydisplay()
 {
