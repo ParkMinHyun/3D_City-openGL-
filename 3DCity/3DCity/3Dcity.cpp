@@ -314,6 +314,10 @@ int init()
 	glHint(GL_FOG_HINT, GL_NICEST);
 	glEnable(GL_FOG);
 
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	glDisable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 }
@@ -1185,7 +1189,22 @@ void keyboard(unsigned char key, int x, int y)
 				near_linear = false;
 			}
 			break;
+	case 'b':					// 전체 텍스처 in or out
+		if (flag_trans == false)
+		{
+			glClearColor(0, 0, 0, 0.21);
+			glEnable(GL_BLEND);
+			flag_trans = true;
+			break;
+		}
+		else
+		{
+			glClearColor(1, 1, 1, 1);
+			glDisable(GL_BLEND);
+			flag_trans = false;
+			break;
 
+		}
 	case 'x':
 		exit(0);
 	}
