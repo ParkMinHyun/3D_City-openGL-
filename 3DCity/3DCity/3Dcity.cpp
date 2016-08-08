@@ -383,6 +383,31 @@ void building2()
 	drawCube_building2(1.0, 3.0, 1.5, 5, 3);
 	glPushMatrix(); glTranslatef(0.0, (GLfloat)5.12, 0.0);   glScalef(1, 0.5, 1); drawCube(0.8, 1, (GLfloat)1.1, 5, 5); glPopMatrix();
 }
+void church()
+{
+	drawCube(0.7, 1.0, 1.5, 5, 5);
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)1.6, 0.0); drawPoly(0.75, 0.5, 1.5); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)1.6, 0.0); glRotatef(180.0, 0.0, 1.0, 0.0); drawPoly(0.75, 0.5, 1.5);					 glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)1.25, (GLfloat)0.7, 0.0); drawCube_building2(0.1, 2.2, 1, 4, 8);	glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)1.25, (GLfloat)2.9, 0.0); drawPoly(0.1, 0.5, 1);	glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)1.25, (GLfloat)2.9, 0.0); glRotatef(180.0, 0.0, 1.0, 0.0); drawPoly(0.1, 0.5, 1);			 glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)1.25, (GLfloat)3.7, 0.0); drawCube(0.1, 3, (GLfloat)0.1, 4, 1); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)1.25, (GLfloat)3.8, 0.0); glRotatef(90.0, 0.0, 1.0, 0.0);  drawCube(2, 0.5, (GLfloat)0.1, 4, 1); glPopMatrix();
+}
+void school()
+{
+	drawCube_building2(1, 1.0, (GLfloat)1.2, 10, 9);
+
+
+	GLfloat ambient_b3[] = { 0.52 , 0.11 , 0.02 , 1.0 };
+	GLfloat diffues_b3[] = { 0.52 , 0.15, 0.14, 1.0 };
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_b3);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_b3);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m);
+	glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)1.85, 0.0);			drawSchoolroof(1.02, 0.5, (GLfloat)1.27, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)1.5, (GLfloat)-0.7, 0.0); drawCube(0.2, 0.1, (GLfloat)0.5, 10, 1);	   glPopMatrix();
+}
 //---------------------------------------------------------------------------------건물 그리기
 void drawBuilding1()
 {
@@ -423,6 +448,27 @@ void drawBuilding2()
 	GLfloat ambient_b2_4[] = { 0.85 , 0.71 , 0.22 , 1.0 }; GLfloat diffues_b2_4[] = { 0.82 , 0.70, 0.1, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_b2_4);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_b2_4); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
 	glPushMatrix(); glTranslatef(24.0, 9.0, (GLfloat)-12.6);		  glRotatef(180.0, 0.0, 1.0, 0.0); glScalef(3, 3, (GLfloat)3);	  building2(); glPopMatrix();	// 은행 뒤
+}
+void drawChurch()
+{
+	GLfloat ambient_ch[] = { 0.52 , 0.51 , 0.22 , 1.0 };
+	GLfloat diffues_ch[] = { 0.72 , 0.45, 0.94, 1.0 };
+
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_ch);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_ch);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m);
+	glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix();   glTranslatef(-23.0, -1.0, 20.0); glRotatef(-90, 0.0, 1.0, 0.0); glScalef(3, 2, 2); church(); glPopMatrix();
+}
+void drawSchool()
+{
+	GLfloat ambient_b2[] = { 0.82 , 0.11 , 0.02 , 1.0 };
+	GLfloat diffues_b2[] = { 0.92 , 0.15, 0.14, 1.0 };
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_b2);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_b2);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m);
+	glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix();   glTranslatef(-29.5, -1.0, 20.0); glRotatef(180, 0.0, 1.0, 0.0); glScalef(2, 3, 2); school(); glPopMatrix();
 }
 void mydisplay()
 {
