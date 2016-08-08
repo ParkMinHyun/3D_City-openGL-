@@ -49,6 +49,14 @@ GLfloat ver_c[8][3] =
 	{ 1.0,1.0,-1.0 },
 	{ 1.0,-1.0,-1.0 },
 };
+//------pyramid vertex ----
+GLfloat ver_p[4][3] =
+{
+	{ 0.0,1.0,0.0 },
+	{ -1.0,-1.0,1.0 },
+	{ 1.0,-1.0,1.0 },
+	{ 0.0,-1.0,-1.0 },
+};
 
 void Initlight()										// All Setup For OpenGL Goes Here
 {
