@@ -378,6 +378,11 @@ void building1()   // glTranslatef의 y축에 GLfloat을 해야 경고문이 없어져서 ㅠㅠ
 	glPushMatrix(); glTranslatef(0.0, (GLfloat)9.2, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)9.4, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
 	glPushMatrix(); glTranslatef(0.0, (GLfloat)9.9, 0.0); drawCube(1.0, 0.11, 1.9, 4, 2); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)10.9, 0.0); drawCube(1, 0.5, 1.5, 4, 1); glPopMatrix();
 }
+void building2()
+{
+	drawCube_building2(1.0, 3.0, 1.5, 5, 3);
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)5.12, 0.0);   glScalef(1, 0.5, 1); drawCube(0.8, 1, (GLfloat)1.1, 5, 5); glPopMatrix();
+}
 //---------------------------------------------------------------------------------건물 그리기
 void drawBuilding1()
 {
@@ -392,6 +397,32 @@ void drawBuilding1()
 	GLfloat ambient_b2_1[] = { 0.25 , 0.21 , 0.32 , 1.0 }; GLfloat diffues_b2_1[] = { 0.12 , 0.70, 0.9, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_b2_1);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_b2_1); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
 	glPushMatrix(); glTranslatef((GLfloat)35.3, -3.0, (GLfloat)-5.5);  glScalef(2.5, 2.5, 2.5); building1(); glPopMatrix();
+}
+void drawBuilding2()
+{
+	GLfloat ambient_b2[] = { 0.72 , 0.21 , 0.32 , 1.0 }; GLfloat diffues_b2[] = { 0.92 , 0.15, 0.14, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_b2);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_b2); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(-8.5, (GLfloat)1.2, (GLfloat)-5.7);  glRotatef(180.0, 0.0, 1.0, 0.0); glScalef((GLfloat)1.4, (GLfloat)1.2, (GLfloat)1.3); building2(); glPopMatrix();
+
+	GLfloat ambient_b2_1[] = { 0.25 , 0.21 , 0.32 , 1.0 }; GLfloat diffues_b2_1[] = { 0.12 , 0.70, 0.9, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_b2_1);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_b2_1); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(-6.0, (GLfloat)2.9, (GLfloat)-9.6);  glRotatef(180.0, 0.0, 1.0, 0.0); glScalef((GLfloat)1.2, (GLfloat)1.6, (GLfloat)1); building2(); glPopMatrix();
+
+	GLfloat ambient_b2_2[] = { 0.25 , 0.91 , 0.32 , 1.0 }; GLfloat diffues_b2_2[] = { 0.12 , 0.90, 0.3, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_b2_2);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_b2_2); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(8.0, (GLfloat)3.3, (GLfloat)-18.6); glRotatef(180.0, 0.0, 1.0, 0.0); glScalef(1, (GLfloat)1.9, (GLfloat)1.3); building2(); glPopMatrix();
+	glPushMatrix(); glTranslatef(8.0, 1.7, (GLfloat)-13.6);			  glRotatef(180.0, 0.0, 1.0, 0.0); glScalef(1, (GLfloat)1.5, (GLfloat)1.5); building2(); glPopMatrix();
+
+
+	GLfloat ambient_b2_3[] = { 0.25 , 0.71 , 0.52 , 1.0 }; GLfloat diffues_b2_3[] = { 0.12 , 0.70, 0.7, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_b2_3);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_b2_3); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef((GLfloat)17.3, 2.0, (GLfloat)-5.5);  glRotatef(180.0, 0.0, 1.0, 0.0); glScalef(1, (GLfloat)1.4, (GLfloat)1.8); building2(); glPopMatrix(); // 은행 
+	glPushMatrix(); glTranslatef(17.5, (GLfloat)5, (GLfloat)-18.6);  glRotatef(180.0, 0.0, 1.0, 0.0); glScalef(1, (GLfloat)2.2, (GLfloat)1.3); building2(); glPopMatrix();
+	glPushMatrix(); glTranslatef(15.0, (GLfloat)5, (GLfloat)-15.6);  glRotatef(180.0, 0.0, 1.0, 0.0); glScalef(1, (GLfloat)2.2, (GLfloat)1.3); building2(); glPopMatrix();
+
+	GLfloat ambient_b2_4[] = { 0.85 , 0.71 , 0.22 , 1.0 }; GLfloat diffues_b2_4[] = { 0.82 , 0.70, 0.1, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_b2_4);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_b2_4); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(24.0, 9.0, (GLfloat)-12.6);		  glRotatef(180.0, 0.0, 1.0, 0.0); glScalef(3, 3, (GLfloat)3);	  building2(); glPopMatrix();	// 은행 뒤
 }
 void mydisplay()
 {
