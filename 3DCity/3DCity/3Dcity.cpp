@@ -307,6 +307,60 @@ void drawPoly(double x, double y, GLfloat size)
 	polygon(1, 4, 5, 2, size, 2);
 	glPopMatrix();
 }
+
+void cylinder(GLdouble base, GLdouble top, GLdouble height)
+{
+	GLUquadricObj *qobj;
+	qobj = gluNewQuadric();
+	gluQuadricDrawStyle(qobj, GLU_FILL);
+	gluQuadricNormals(qobj, GLU_SMOOTH); /* smooth shaded */
+	gluCylinder(qobj, base, top, height, 15, 5);
+
+}
+void drawCylinder(double a, double b, double c)            // 빈 실린더
+{
+	glPushMatrix(); // 실린더 그리기. 
+	glTranslatef(3.0, 2.0, 0.0);
+	GLUquadricObj *obj;
+	obj = gluNewQuadric();
+	gluQuadricDrawStyle(obj, GLU_FILL);
+	glTranslatef(0.0, (GLfloat)-0.7, 0.0);
+	glRotatef(90, 1.0, 0.0, 0.0);  // 마우스 드래그 회전 X축 기준
+	gluCylinder(obj, a, b, c, 12, 10);//실린더 크기를 적당한 크기로 변경
+	glPopMatrix();
+}
+void draw_Cylinder(GLfloat radius, GLfloat height)         // 꽉찬 실린더
+{
+	GLfloat x = 0.0; GLfloat y = 0.0;
+	GLfloat angle = 0.0; GLfloat angle_stepsize = (GLfloat)0.1;
+
+	/** Draw the tube */
+	glBegin(GL_QUAD_STRIP);
+	angle = 0.0;
+	while (angle < 2 * PI) {
+		x = radius * cos(angle);
+		y = radius * sin(angle);
+		glVertex3f(x, y, height);
+		glVertex3f(x, y, 0.0);
+		angle = angle + angle_stepsize;
+	}
+	glVertex3f(radius, 0.0, height);
+	glVertex3f(radius, 0.0, 0.0);
+	glEnd();
+
+	/** Draw the circle on top of cylinder */
+	glBegin(GL_POLYGON);
+	angle = 0.0;
+	while (angle < 2 * PI) {
+		x = radius * cos(angle);
+		y = radius * sin(angle);
+		glVertex3f(x, y, height);
+		angle = angle + angle_stepsize;
+	}
+	glVertex3f(radius, 0.0, height);
+	glEnd();
+}
+
 void mydisplay()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the window
