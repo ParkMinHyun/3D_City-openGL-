@@ -529,6 +529,25 @@ void house()
 	glPushMatrix(); glTranslatef(0.0, (GLfloat)1.2, 0.0); drawPoly(0.75, 0.5, 1.5); glPopMatrix();
 	glPushMatrix(); glTranslatef(0.0, (GLfloat)1.2, 0.0); glRotatef(180.0, 0.0, 1.0, 0.0); drawPoly(0.75, 0.5, 1.5); glPopMatrix();
 }
+void crossload()
+{
+	GLfloat ambient_car2[] = { 1 , 1 , 1 , 1.0 }; GLfloat diffues_car2[] = { 1 , 1, 1, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_car2);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_car2); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix();   glTranslatef(-3, -8, 0.0); glScalef(1.3, 0.1, 0.5); glRotatef(-90, 1, 0, 0); drawCube(1, 1, 1, 4, 4); glPopMatrix();
+}
+void road()
+{
+	GLfloat ambient_road[] = { 0.2 , 0.2 , 0.2 , 1.0 }; GLfloat diffues_road[] = { .1 , .1, .1, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_road);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_road); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix();   glTranslatef(-2.2, -10, 4.5); glScalef(40, 0.1, 6); drawCube(1, 1, 1, 0, 0); glPopMatrix();
+	glPushMatrix();   glTranslatef(-5, -10, -18.0); glRotatef(90, 0, 1, 0); glScalef(16.5, 0.1, 4.2);  drawCube(1, 1, 1, 0, 0); glPopMatrix();
+	glPushMatrix();   glTranslatef(15, -10, 28.0); glRotatef(90, 0, 1, 0); glScalef(17.5, 0.1, 4.2);  drawCube(1, 1, 1, 0, 0); glPopMatrix();
+	glPushMatrix();   glTranslatef(-22, -10, 28.0); glRotatef(90, 0, 1, 0); glScalef(17.5, 0.1, 3.2);  drawCube(1, 1, 1, 0, 0); glPopMatrix();
+}
+void field()
+{
+	glPushMatrix(); glTranslatef(-6.0, -2.0, 2.0); glScalef(1, 1, 0.05); drawCube(40, 40, 1, 4, 1); glPopMatrix();
+}
 //---------------------------------------------------------------------------------건물 그리기
 void drawBuilding1()
 {
@@ -715,6 +734,31 @@ void drawTree()
 	glPushMatrix();	glTranslatef(32.0, -3.0, 14.5); glScalef((GLfloat)0.5, (GLfloat)0.5, (GLfloat)0.5); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
 	glPushMatrix();	glTranslatef(39.0, -3.0, 24.0); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
 	glPushMatrix();	glTranslatef(40.0, -3.0, 14.5); glScalef((GLfloat)0.8, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); tree(); glPopMatrix();
+}
+void drawfield()
+{
+	GLfloat ambient[] = { 0.01 , 0.09 , 0.09 , 1.0 };
+	GLfloat diffues[] = { 0.092 , 0.095, 0.092, 1.0 };
+	GLfloat specular[] = { 1.00, 1.00, 1.00, 1.0 };
+	GLfloat shine[] = { 25.0 };
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffues);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, shine);
+	glTranslatef(0.0, -8.5, 0.0);
+	glPushMatrix(); glTranslatef(10.0, 4.5, 10.0); glRotatef(90, 1, 0, 0); field(); glPopMatrix();
+}
+void drawcrossload()
+{
+	glPushMatrix(); glTranslatef(-6.0, 3.0, 2.0);  crossload(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-6.0, 3.0, 4.0);  crossload(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-6.0, 3.0, 6.0);  crossload(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-6.0, 3.0, 8.0);  crossload(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-6.0, 3.0, 10.0); crossload(); glPopMatrix();
+}
+void drawroad()
+{
+	glPushMatrix(); glTranslatef(6.0, 13.2, 2.0); road(); glPopMatrix();
 }
 
 void mydisplay()
