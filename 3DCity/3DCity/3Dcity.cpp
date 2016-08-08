@@ -456,6 +456,19 @@ void policeOffice()
 	glPushMatrix(); glTranslatef(-2.5, (GLfloat)0.7, 1); glRotatef(90.0, 1.0, 0.0, 0.0);  drawCube(0.05, 0.05, (GLfloat)2, 4, 4); glPopMatrix();
 	glPushMatrix(); glTranslatef(-0.6, (GLfloat)-0.15, 1.5);  glRotatef(90.0, 0.0, 1.0, 0.0); drawCube(0.5, 0.1, (GLfloat)0.5, 4, 4);  glPopMatrix();
 }
+void hotel(double x, double y, GLfloat size)
+{
+	glShadeModel(GL_SMOOTH);
+	glPushMatrix();
+	glScalef((GLfloat)x, (GLfloat)y, 1.0f);
+	polygon_hotel(0, 10, 19, 9, size, 2, 4); polygon_hotel(4, 14, 15, 5, size, 2, 4);
+	polygon_hotel(0, 1, 9, 0, size, 1, 19);   polygon_hotel(1, 8, 9, 0, size, 1, 19); polygon_hotel(1, 7, 8, 0, size, 1, 19); polygon_hotel(1, 2, 7, 0, size, 1, 19);
+	polygon_hotel(2, 6, 7, 0, size, 1, 19);   polygon_hotel(2, 3, 6, 0, size, 1, 19); polygon_hotel(3, 4, 6, 0, size, 1, 19); polygon_hotel(4, 5, 6, 0, size, 1, 19); // À­¸é »ï°¢ÇüÀ¸·Î ±×¸®±â.
+	polygon_hotel(0, 10, 11, 1, size, 2, 18);   polygon_hotel(1, 11, 12, 2, size, 2, 18); polygon_hotel(2, 12, 13, 3, size, 2, 18); polygon_hotel(3, 13, 14, 4, size, 2, 18); // ¾Õ¸é
+	polygon_hotel(19, 9, 8, 18, size, 2, 4); polygon_hotel(18, 8, 7, 17, size, 2, 4); polygon_hotel(17, 7, 6, 16, size, 2, 4); polygon_hotel(16, 6, 5, 15, size, 2, 4); // µÞ¸é
+	polygon_hotel(10, 19, 18, 11, size, 2, 4); polygon_hotel(11, 18, 17, 12, size, 2, 4); polygon_hotel(12, 17, 16, 13, size, 2, 4); polygon_hotel(13, 16, 15, 14, size, 2, 4); // ¹Ø¸é
+	glPopMatrix();
+}
 //---------------------------------------------------------------------------------°Ç¹° ±×¸®±â
 void drawBuilding1()
 {
@@ -535,6 +548,24 @@ void drawCityhall_Policeoffice()
 	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m);
 	glMaterialfv(GL_FRONT, GL_SHININESS, shine);
 	glPushMatrix();   glTranslatef(14.5, -1.0, 40.0);   glRotatef(-90, 0.0, 1.0, 0.0); glScalef(2, 2.5, 2); policeOffice(); glPopMatrix();
+}
+void drawHotelEntrance()
+{
+	GLfloat ambient_hotel[] = { 0.52 , 0.81 , 0.92 , 1.0 }; GLfloat diffues_hotel[] = { 0.52 , 0.85, 0.94, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, diffues_hotel);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, ambient_hotel); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+
+	glPushMatrix(); glTranslatef(0, (GLfloat)-1.3, (GLfloat)1.6); glRotatef(90.0, 0.0, 1.0, 0.0);			 drawCube(0.6, 0.05, (GLfloat)1.7, 4, 1);  glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)-1, (GLfloat)-2.7, (GLfloat)5.5);  glRotatef(90.0, 0.0, 1.0, 0.0); drawCylinder(0.1, 0.1, 0.5);			glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)-0.4, (GLfloat)-2.7, (GLfloat)5.5); glRotatef(90.0, 0.0, 1.0, 0.0); drawCylinder(0.1, 0.1, 0.5);			glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)0.2, (GLfloat)-2.7, (GLfloat)5.5); glRotatef(90.0, 0.0, 1.0, 0.0); drawCylinder(0.1, 0.1, 0.5);			glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)0.8, (GLfloat)-2.7, (GLfloat)5.5); glRotatef(90.0, 0.0, 1.0, 0.0); drawCylinder(0.1, 0.1, 0.5);			glPopMatrix();
+}
+void drawHotel()
+{
+	GLfloat ambient_hotel[] = { 0.52 , 0.81 , 0.92 , 1.0 }; GLfloat diffues_hotel[] = { 0.52 , 0.85, 0.94, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, diffues_hotel);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, ambient_hotel); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(40.0, 0, 30.0); glRotatef(-90, 0.0, 1.0, 0.0); glScalef((GLfloat)1.3, (GLfloat)1.3, (GLfloat)1.3); hotel(2, 2, 2); glPopMatrix();
+	glPushMatrix(); glTranslatef(40.0, -3, 30.0); glRotatef(-90, 0.0, 1.0, 0.0); drawHotelEntrance(); glPopMatrix();
 }
 void mydisplay()
 {
