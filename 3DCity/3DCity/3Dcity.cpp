@@ -360,7 +360,39 @@ void draw_Cylinder(GLfloat radius, GLfloat height)         // 꽉찬 실린더
 	glVertex3f(radius, 0.0, height);
 	glEnd();
 }
+void building1()   // glTranslatef의 y축에 GLfloat을 해야 경고문이 없어져서 ㅠㅠ 코드가 길어지긴 했지만 넣었습니다..........
+{
+	drawCube(1.0, 0.4, 1.5, 4, 4);
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)0.8, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)1.0, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)1.5, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)1.7, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)2.2, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)2.4, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)2.9, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)3.1, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)3.6, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)3.8, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)4.3, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)4.5, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)5.0, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)5.2, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)5.7, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)5.9, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)6.4, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)6.6, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)7.1, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)7.3, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)7.8, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)8.0, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)8.5, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)8.7, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)9.2, 0.0); drawCube(1.0, 0.11, 1.9, 4, 4); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)9.4, 0.0); drawCube(1, 0.4, 1.5, 4, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef(0.0, (GLfloat)9.9, 0.0); drawCube(1.0, 0.11, 1.9, 4, 2); glPopMatrix();/**/ glPushMatrix(); glTranslatef(0.0, (GLfloat)10.9, 0.0); drawCube(1, 0.5, 1.5, 4, 1); glPopMatrix();
+}
+//---------------------------------------------------------------------------------건물 그리기
+void drawBuilding1()
+{
+	GLfloat ambient_b1[] = { 0.22 , 0.51 , 0.52 , 1.0 };
+	GLfloat diffues_b1[] = { 0.02 , 0.15, 0.94, 1.0 };
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_b1);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_b1);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m);
+	glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(-16.0, -2.5, -10.0); glScalef(2.5, 2.5, 2.5); building1(); glPopMatrix();
 
+	GLfloat ambient_b2_1[] = { 0.25 , 0.21 , 0.32 , 1.0 }; GLfloat diffues_b2_1[] = { 0.12 , 0.70, 0.9, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_b2_1);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_b2_1); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef((GLfloat)35.3, -3.0, (GLfloat)-5.5);  glScalef(2.5, 2.5, 2.5); building1(); glPopMatrix();
+}
 void mydisplay()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the window
