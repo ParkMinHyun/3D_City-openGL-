@@ -408,6 +408,15 @@ void school()
 	glPushMatrix(); glTranslatef(0.0, (GLfloat)1.85, 0.0);			drawSchoolroof(1.02, 0.5, (GLfloat)1.27, 4); glPopMatrix();
 	glPushMatrix(); glTranslatef((GLfloat)1.5, (GLfloat)-0.7, 0.0); drawCube(0.2, 0.1, (GLfloat)0.5, 10, 1);	   glPopMatrix();
 }
+void hospital()
+{
+	GLfloat ambient_hotel[] = { 0.12 , 0.81 , 0.52 , 1.0 }; GLfloat diffues_hotel[] = { 0.02 , 0.85, 0.54, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, diffues_hotel);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, ambient_hotel); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	drawCube_building2(1, 2, 1.5, 5, 6);
+	glPushMatrix(); glTranslatef((GLfloat)1.8, (GLfloat)-2.5, 0);  drawCube(0.2, 0.2, 1, 4, 1); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)1.45, (GLfloat)3.9, 0.0); drawCube(0.05, 0.3, (GLfloat)1, 4, 1); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)1.35, (GLfloat)3.9, 0.0); glRotatef(90.0, 1.0, 0.0, 0.0);  drawCube(0.05, 0.3, 1, 4, 1); glPopMatrix();
+}
 //---------------------------------------------------------------------------------건물 그리기
 void drawBuilding1()
 {
@@ -469,6 +478,10 @@ void drawSchool()
 	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m);
 	glMaterialfv(GL_FRONT, GL_SHININESS, shine);
 	glPushMatrix();   glTranslatef(-29.5, -1.0, 20.0); glRotatef(180, 0.0, 1.0, 0.0); glScalef(2, 3, 2); school(); glPopMatrix();
+}
+void drawHospital()
+{
+	glPushMatrix(); glTranslatef((GLfloat)12.3, (GLfloat)1.7, (GLfloat)-10.5); glRotatef(180.0, 0.0, 1.0, 0.0); glScalef(1, (GLfloat)2.2, (GLfloat)1.9); hospital(); glPopMatrix();
 }
 void mydisplay()
 {
