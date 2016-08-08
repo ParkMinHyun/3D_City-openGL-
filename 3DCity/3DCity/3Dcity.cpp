@@ -150,6 +150,31 @@ void mousemove(int x, int y) //https://en.wikibooks.org/wiki/OpenGL_Programming/
 }
 void keyboard(unsigned char key, int x, int y)
 {
+	switch (key)
+	{
+	case '0':
+		glDisable(GL_LIGHT0);
+		glDisable(GL_LIGHT1);
+		glDisable(GL_LIGHT2);
+		break;
+
+	case '1':
+		glEnable(GL_LIGHT0);
+		glDisable(GL_LIGHT1);
+		glDisable(GL_LIGHT2);
+		break;
+
+	case '2':
+		glEnable(GL_LIGHT0);
+		glEnable(GL_LIGHT1);
+		glDisable(GL_LIGHT2);
+		break;
+	case '3':
+		glEnable(GL_LIGHT0);
+		glEnable(GL_LIGHT1);
+		glEnable(GL_LIGHT2);
+		break;
+	}
 }
 int main(int argc, char** argv)
 {
