@@ -29,6 +29,7 @@ bool f11_flag = false;
 bool f12_flag = false;
 
 GLfloat zoom = 10;
+GLfloat fog_density = 0;
 
 GLfloat ambient0[] = { 0.1f, 0.15f, 0.15f, 1.0f };
 GLfloat diffuse0[] = { 0.0f, 0.3f, 0.0f, 1.0f };
@@ -49,6 +50,7 @@ GLfloat lightPos2[] = { 28.0,0.3, 1.0 };
 GLfloat shine[] = { 25.0 };
 
 GLfloat specular_m[] = { 1.00, 1.00, 1.00, 1.0 };
+GLfloat fogColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 //------cube vertex ----
 GLfloat ver_c[8][3] =
 {
@@ -145,6 +147,11 @@ void init()
 	gluPerspective(45.0f, 1.0, 1.0, 500.0);		 // 각도~ 45도로 잡겠다 내가 보는 방향. 
 	gluLookAt(0, 0, 30, 0, 0, 0, 0, 1, 0);
 	glLoadIdentity();
+
+	glFogi(GL_FOG_MODE, GL_EXP); // GL_LINEAR, GL_EXP, GL_EXP2
+	glFogfv(GL_FOG_COLOR, fogColor);
+	glHint(GL_FOG_HINT, GL_NICEST);
+	glEnable(GL_FOG);
 }
 void quad(int a, int b, int c, int d, GLfloat size, int e)
 {
@@ -976,6 +983,18 @@ void keyboard(unsigned char key, int x, int y)
 		glEnable(GL_LIGHT0);
 		glEnable(GL_LIGHT1);
 		glEnable(GL_LIGHT2);
+		break;
+	case 'f':
+		if (fog_density>1)
+			fog_density = 1;
+		fog_density += 0.02;
+
+		break;
+
+	case 'g':
+		if (fog_density<0)
+			fog_density = 0;
+		fog_density -= 0.02;
 		break;
 	}
 }
