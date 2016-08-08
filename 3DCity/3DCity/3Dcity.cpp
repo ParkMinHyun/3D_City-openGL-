@@ -469,6 +469,25 @@ void hotel(double x, double y, GLfloat size)
 	polygon_hotel(10, 19, 18, 11, size, 2, 4); polygon_hotel(11, 18, 17, 12, size, 2, 4); polygon_hotel(12, 17, 16, 13, size, 2, 4); polygon_hotel(13, 16, 15, 14, size, 2, 4); // 밑면
 	glPopMatrix();
 }
+void car()
+{
+	drawCube(2.0, 1.0, 0.5, 4, 4);
+	glPushMatrix(); glTranslatef(0, (GLfloat)0.95, 0.0); drawSchoolroof(1.3, 1.0, (GLfloat)0.45, 4); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)-0.4, (GLfloat)-0.8, (GLfloat)0.2);	draw_Cylinder((GLfloat)0.3, (GLfloat)0.3); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)0.4, (GLfloat)-0.8, (GLfloat)0.2);	draw_Cylinder((GLfloat)0.3, (GLfloat)0.3); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)-0.4, (GLfloat)-0.8, (GLfloat)-0.4);	draw_Cylinder((GLfloat)0.3, (GLfloat)0.3); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)0.4, (GLfloat)-0.8, (GLfloat)-0.4);	draw_Cylinder((GLfloat)0.3, (GLfloat)0.3); glPopMatrix();
+}
+void truck()
+{
+	glPushMatrix();	glRotatef(90.0, 0.0, 0.0, 1.0); drawSchoolroof(1, 0.7, (GLfloat)0.6, 4);    glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)0.6, (GLfloat)0, (GLfloat)0);		glRotatef(90.0, 0.0, 0.0, 1.0); drawCube(0.1, 2, (GLfloat)0.1, 4, 1); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)1.5, (GLfloat)0.2, (GLfloat)0);	drawCube_train(1.5, 1.3, (GLfloat)0.6, 4, 17); glPopMatrix();		// 화물
+	glPushMatrix(); glTranslatef((GLfloat)2, (GLfloat)-0.8, (GLfloat)0.2);	draw_Cylinder((GLfloat)0.3, (GLfloat)0.3); glPopMatrix();	//바퀴 4개
+	glPushMatrix(); glTranslatef((GLfloat)1, (GLfloat)-0.8, (GLfloat)0.2);	draw_Cylinder((GLfloat)0.3, (GLfloat)0.3); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)2, (GLfloat)-0.8, (GLfloat)-0.4);	draw_Cylinder((GLfloat)0.3, (GLfloat)0.3); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)1, (GLfloat)-0.8, (GLfloat)-0.4);	draw_Cylinder((GLfloat)0.3, (GLfloat)0.3); glPopMatrix();
+}
 //---------------------------------------------------------------------------------건물 그리기
 void drawBuilding1()
 {
@@ -566,6 +585,42 @@ void drawHotel()
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, ambient_hotel); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
 	glPushMatrix(); glTranslatef(40.0, 0, 30.0); glRotatef(-90, 0.0, 1.0, 0.0); glScalef((GLfloat)1.3, (GLfloat)1.3, (GLfloat)1.3); hotel(2, 2, 2); glPopMatrix();
 	glPushMatrix(); glTranslatef(40.0, -3, 30.0); glRotatef(-90, 0.0, 1.0, 0.0); drawHotelEntrance(); glPopMatrix();
+}
+void drawCar()
+{
+	GLfloat ambient_car[] = { 0.22 , 0.21 , 0.22 , 1.0 }; GLfloat diffues_car[] = { 0.22 , 0.25, 0.24, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, diffues_car);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, ambient_car); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(-25.0, -4.0, 28.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-25.0, -4.0, 31.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-25.0, -4.0, 34.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-25.0, -4.0, 37.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-21.0, -4.0, 37.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-21.0, -4.0, 34.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-21.0, -4.0, 31.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-30.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+
+	GLfloat ambient_car2[] = { 0.92 , 0.21 , 0.22 , 1.0 }; GLfloat diffues_car2[] = { 0.92 , 0.25, 0.24, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_car2);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_car2); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix(); glTranslatef(-23.0, -4.0, 7.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8);  car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-23.0, -4.0, 9.0);  glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8);  car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-23.0, -4.0, 11.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8);  car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-20.0, -4.0, 11.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8);  car(); glPopMatrix();
+
+
+	glPushMatrix(); glTranslatef(0.0, -4.0, 1.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(-90.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(15.0, -4.0, 11.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(12.0, -4.0, 9.0); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(37.0, -4.0, 9.5); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); car(); glPopMatrix();
+	glPushMatrix(); glTranslatef(23.0, -4.0, 40); glScalef((GLfloat)1, (GLfloat)0.8, (GLfloat)0.8); glRotatef(90.0, 0.0, 1.0, 0.0); car(); glPopMatrix();
+}
+void drawTruck()
+{
+	GLfloat ambient_car[] = { 0.99 , 0.99 , 0.92 , 1.0 }; GLfloat diffues_car[] = { 0.92 , 0.95, 0.94, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, diffues_car);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, ambient_car); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+
+	glPushMatrix(); glTranslatef(-5.0, -4.0, 5.0); truck(); glPopMatrix();
+	glPushMatrix(); glTranslatef(-5.0, -4.0, 3.0); truck(); glPopMatrix();
+	glPushMatrix(); glTranslatef(25.0, -4.0, 3.0); truck(); glPopMatrix();
+	glPushMatrix(); glTranslatef(20.0, -4.0, 40); glRotatef(90.0, 0.0, 1.0, 0.0); truck(); glPopMatrix();
 }
 void mydisplay()
 {
