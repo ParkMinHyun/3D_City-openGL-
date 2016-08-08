@@ -488,6 +488,15 @@ void truck()
 	glPushMatrix(); glTranslatef((GLfloat)2, (GLfloat)-0.8, (GLfloat)-0.4);	draw_Cylinder((GLfloat)0.3, (GLfloat)0.3); glPopMatrix();
 	glPushMatrix(); glTranslatef((GLfloat)1, (GLfloat)-0.8, (GLfloat)-0.4);	draw_Cylinder((GLfloat)0.3, (GLfloat)0.3); glPopMatrix();
 }
+void train()
+{
+	glPushMatrix();	glTranslatef((GLfloat)3.7, (GLfloat)2.5, (GLfloat)0); glRotatef(90.0, 0.0, 0.0, 1.0);	 drawSchoolroof(1, 0.7, (GLfloat)0.6, 4);  glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)1.9, (GLfloat)0, (GLfloat)0); drawCube_train(2.5, 1, (GLfloat)0.6, 4, 14);		 glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)3.5, (GLfloat)0, (GLfloat)0); glRotatef(90.0, 0.0, 0.0, 1.0);	 drawCube(0.1, 2, (GLfloat)0.1, 4, 1); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)5.1, (GLfloat)0, (GLfloat)0); drawCube_train(2.5, 1, (GLfloat)0.6, 4, 14);		 glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)6.7, (GLfloat)0, (GLfloat)0); glRotatef(90.0, 0.0, 0.0, 1.0);	 drawCube(0.1, 2, (GLfloat)0.1, 4, 1); glPopMatrix();
+	glPushMatrix(); glTranslatef((GLfloat)8.3, (GLfloat)0, (GLfloat)0); drawCube_train(2.5, 1, (GLfloat)0.6, 4, 14);		 glPopMatrix();
+}
 //---------------------------------------------------------------------------------건물 그리기
 void drawBuilding1()
 {
@@ -622,6 +631,13 @@ void drawTruck()
 	glPushMatrix(); glTranslatef(25.0, -4.0, 3.0); truck(); glPopMatrix();
 	glPushMatrix(); glTranslatef(20.0, -4.0, 40); glRotatef(90.0, 0.0, 1.0, 0.0); truck(); glPopMatrix();
 }
+void drawtrain()
+{
+	GLfloat ambient_car2[] = { 0.92 , 0.91 , 0.92 , 1.0 }; GLfloat diffues_car2[] = { 0.92 , 0.95, 0.74, 1.0 }; glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_car2);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffues_car2); glMaterialfv(GL_FRONT, GL_SPECULAR, specular_m); glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	glPushMatrix();   glTranslatef(-7.0, -2.5, 0.0); glScalef(1.8, 1, 1);   train(); glPopMatrix();
+}
+
 void mydisplay()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the window
