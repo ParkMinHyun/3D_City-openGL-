@@ -987,17 +987,20 @@ void keyboard(unsigned char key, int x, int y)
 		glEnable(GL_LIGHT2);
 		break;
 	case 'f':
-		if (fog_density>1)
+		if (fog_density > 1)
 			fog_density = 1;
 		fog_density += 0.02;
 
 		break;
 
 	case 'g':
-		if (fog_density<0)
+		if (fog_density < 0)
 			fog_density = 0;
 		fog_density -= 0.02;
 		break;
+
+	case 'x':
+		exit(0);
 	}
 }
 int main(int argc, char** argv)
